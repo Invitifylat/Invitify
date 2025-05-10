@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitify - Invitaciones Digitales Mágicas</title>
+    <meta name="description" content="Las invitaciones digitales más hermosas para tus eventos. Diseños exclusivos con confirmación RSVP integrada y seguimiento en tiempo real.">
+    
+    <!-- Fuentes y estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root {
+            --primary: #FF4D8D; /* Rosa vibrante */
+            --secondary: #FF8EAD; /* Rosa claro */
+            --accent: #FF1A6D; /* Rosa fuerte */
+            --dark-pink: #CC0066; /* Rosa oscuro */
+            --light: #FFF0F5; /* Fondo rosa muy claro */
+            --gold: #FFD700; /* Dorado */
+            --silver: #C0C0C0; /* Plata */
+            --bronze: #CD7F32; /* Bronce */
+            --purple: #9C27B0; /* Morado */
+            --teal: #00BFA5; /* Verde azulado */
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: #555;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-pink);
+        }
+        
+        .logo-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--purple), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: 700;
+            animation: logoPulse 3s infinite;
+        }
+        
+        @keyframes logoPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .hero-title {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            color: #FFFFFF !important;
+            font-weight: 700;
+            background: linear-gradient(45deg, #fff, #FFE6F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card {
+            transition: all 0.4s ease;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(255, 77, 141, 0.15);
+            position: relative;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 77, 141, 0.25);
+        }
+        
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple), var(--accent));
+        }
+        
+        .package-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            z-index: 2;
+        }
+        
+        .essence::before {
+            background: linear-gradient(90deg, var(--bronze), #B87333);
+        }
+        
+        .elegance::before {
+            background: linear-gradient(90deg, var(--silver), #A8A8A8);
+        }
+        
+        .prestige::before {
+            background: linear-gradient(90deg, var(--gold), #D4AF37);
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--accent);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            transform: rotate(15deg);
+            box-shadow: 0 4px 12px rgba(255, 26, 109, 0.3);
+            z-index: 3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: rotate(15deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+            100% { transform: rotate(15deg) scale(1); }
+        }
+        
+        .why-choose-us {
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf') center/cover;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .why-choose-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 0;
+        }
+        
+        .why-choose-us h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--dark-pink);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .why-choose-us p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+            color: #555;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+        
+        .floating {
+            animation: floating 4s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(-3deg); }
+            100% { transform: translateY(0px) rotate(-5deg); }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent), var(--purple));
+            color: white;
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 26, 109, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 26, 109, 0.6);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--dark-pink);
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--purple), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            opacity: 0;
+        }
+        
+        .whatsapp-btn {
+            animation: pulse 2s infinite, wiggle 3s infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        
+        .price-old {
+            text-decoration: line-through;
+            opacity: 0.7;
+            font-size: 1rem;
+        }
+        
+        .price-new {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--dark-pink);
+            margin: 5px 0;
+        }
+        
+        .feature-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: var(--teal);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,240,245,0.9));
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full z-50 py-4 bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="logo-text">Invitify</div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#features" class="nav-link hover:text-gray-600">Características</a>
+                <a href="#pricing" class="nav-link hover:text-gray-600">Paquetes</a>
+                <a href="#why-us" class="nav-link hover:text-gray-600">¿Por qué elegirnos?</a>
+                <a href="#contact" class="nav-link hover:text-gray-600">Contacto</a>
+            </div>
+            
+            <div class="hidden md:block">
+                <a href="#pricing" class="px-6 py-2 rounded-full font-medium btn-primary">Ver Paquetes</a>
+            </div>
+            
+            <button class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section pt-32 pb-20 px-6 text-center relative overflow-hidden" style="background: linear-gradient(135deg, rgba(204,0,102,0.8), rgba(156,39,176,0.8)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed') no-repeat center center; background-size: cover;">
+        <!-- Confetti elements -->
+        <div id="confetti-container"></div>
+        
+        <div class="container mx-auto relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 hero-title" data-aos="fade-down" data-aos-duration="800">Invitaciones Digitales</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white" data-aos="fade-down" data-aos-duration="800" data-aos-delay="100">Diseños exclusivos que enamorarán a tus invitados</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <a href="#pricing" class="px-8 py-3 rounded-full text-lg btn-primary">Ver Paquetes</a>
+                <a href="#contact" class="px-8 py-3 rounded-full text-lg btn-secondary">Personalizar Ahora</a>
+            </div>
+            
+            <div class="mt-16 flex justify-center floating" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc" alt="Demo invitación" class="w-64 h-96 object-cover rounded-lg shadow-xl" style="border: 10px solid white; transform: rotate(-5deg);">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg" style="transform: rotate(3deg);">
+                        <div class="text-center">
+                            <div class="font-great-vibes text-3xl" style="color: var(--dark-pink);">Lylu & Vic</div>
+                            <div class="text-sm" style="color: var(--dark-pink);">07 • 07 • 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ¿Por qué elegir Invitify? -->
+    <section id="why-us" class="why-choose-us">
+        <div class="container mx-auto relative z-10">
+            <h2 data-aos="fade-down">¿Por qué elegir Invitify?</h2>
+            <p data-aos="fade-up" data-aos-delay="200">"Elige Invitify para transformar tus momentos especiales en recuerdos inolvidables, con elegancia, simplicidad y un toque personal."</p>
+        </div>
+    </section>
+
+    <!-- Características Exclusivas -->
+    <section id="features" class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-down">Características Exclusivas</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <!-- Galería de Fotos -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6 text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3">Galería de Fotos</h3>
+                        <p class="text-center text-gray-600">Sube hasta 12 fotos con editor de arrastrar y soltar</p>
+                    </div>
+                </div>
+                
+                <!-- Cuenta Regresiva -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-6 text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3">Cuenta Regresiva</h3>
+                        <p class="text-center text-gray-600">Animada y personalizable</p>
+                    </div>
+                </div>
+                
+                <!-- Confirmación RSVP -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-6 text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3">Confirmación RSVP</h3>
+                        <p class="text-center text-gray-600">Seguimiento en tiempo real con analíticas</p>
+                    </div>
+                </div>
+                
+                <!-- Compartir en WhatsApp -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="p-6 text-center">
+                        <div class="feature-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3">Compartir en WhatsApp</h3>
+                        <p class="text-center text-gray-600">Con códigos QR y enlaces</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="500">
+                <p class="text-2xl font-bold" style="color: var(--accent);">¡Y mucho más!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nuestra Historia -->
+    <section id="our-story" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto max-w-4xl">
+            <div class="highlight-box" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-center mb-12">Nuestra Historia</h2>
+                
+                <div class="text-center">
+                    <p class="text-lg mb-6">Todo comenzó con nuestro propio amor...</p>
+                    <p class="text-lg mb-6">Cuando Lylu y yo nos casamos en Julio de 2024, buscamos la manera perfecta de compartir nuestra felicidad con todos nuestros seres queridos. Queríamos algo especial, único y que reflejara nuestra personalidad.</p>
+                    <p class="text-lg">Fue entonces cuando nació la idea de Invitify, donde Hoy, con cada invitación que creamos, ponemos el mismo amor y dedicación que pusimos en las nuestras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paquetes -->
+    <section id="pricing" class="py-20 px-6" style="background-color: var(--light);">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-down">Paquetes para tu Boda</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Paquete Essence -->
+                <div class="package-card essence" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold">Essence</h3>
+                        <div class="mt-4">
+                            <span class="price-old">Antes $1,400</span>
+                            <span class="price-new">$700 MXN</span>
+                            <span class="text-sm block">50% de descuento</span>
+                        </div>
+                        <a href="#contact" class="mt-4 inline-block px-6 py-2 rounded-full text-sm btn-primary">Comprar</a>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <ul class="feature-list">
+                            <li>1 Foto/Video de Portada</li>
+                            <li>6 Fotos en Galería</li>
+                            <li>Cuenta Regresiva</li>
+                            <li>Confirmación Sencilla</li>
+                            <li>1 Mapa Sencillo</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Paquete Elegance -->
+                <div class="package-card elegance" data-aos="fade-up" data-aos-delay="200">
+                    <div class="discount-badge">50% OFF</div>
+                    <div class="p-6 text-center">
+                        <div class="text-center mb-2">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--accent); color: white;">MÁS POPULAR</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Elegance</h3>
+                        <div class="mt-4">
+                            <span class="price-old">Antes $2,400</span>
+                            <span class="price-new">$1,200 MXN</span>
+                            <span class="text-sm block">50% de descuento</span>
+                        </div>
+                        <a href="#contact" class="mt-4 inline-block px-6 py-2 rounded-full text-sm btn-primary">Comprar</a>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <ul class="feature-list">
+                            <li>2 Fotos/Video de Portada</li>
+                            <li>10 Fotos en Galería</li>
+                            <li>Notificación por WhatsApp</li>
+                            <li>2 Mapas GPS</li>
+                            <li>Mesa de Regalos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Paquete Prestige -->
+                <div class="package-card prestige" data-aos="fade-up" data-aos-delay="300">
+                    <div class="discount-badge">50% OFF</div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold">Prestige</h3>
+                        <div class="mt-4">
+                            <span class="price-old">Antes $3,400</span>
+                            <span class="price-new">$1,700 MXN</span>
+                            <span class="text-sm block">50% de descuento</span>
+                        </div>
+                        <a href="#contact" class="mt-4 inline-block px-6 py-2 rounded-full text-sm btn-primary">Comprar</a>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <ul class="feature-list">
+                            <li>3 Fotos/Video de Portada</li>
+                            <li>12 Fotos en Galería</li>
+                            <li>Confirmación VIP</li>
+                            <li>Itinerario Completo</li>
+                            <li>100 Códigos de Acceso</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Contacto -->
+    <section id="contact" class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-4xl">
+            <div class="highlight-box" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-center mb-12">Contáctanos</h2>
+                
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-1">WhatsApp</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="+52 55 1234 5678">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Evento</label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                            <label class="event-type-option">
+                                <input type="radio" name="event_type" value="Boda" class="form-radio" checked>
+                                <span>Boda</span>
+                            </label>
+                            <label class="event-type-option">
+                                <input type="radio" name="event_type" value="XV años" class="form-radio">
+                                <span>XV años</span>
+                            </label>
+                            <label class="event-type-option">
+                                <input type="radio" name="event_type" value="Bautizo" class="form-radio">
+                                <span>Bautizo</span>
+                            </label>
+                            <label class="event-type-option">
+                                <input type="radio" name="event_type" value="Evento empresa" class="form-radio">
+                                <span>Evento empresa</span>
+                            </label>
+                            <label class="event-type-option">
+                                <input type="radio" name="event_type" value="Cumpleaños" class="form-radio">
+                                <span>Cumpleaños</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="event_date" class="block text-sm font-medium text-gray-700 mb-1">Fecha del Evento</label>
+                        <input type="text" id="event_date" name="event_date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent flatpickr" placeholder="Selecciona una fecha">
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="px-8 py-3 rounded-full font-bold text-lg btn-primary">Enviar Mensaje</button>
+                    </div>
+                </form>
+                
+                <div class="mt-12 text-center">
+                    <h3 class="text-xl font-bold mb-4">O contáctanos directamente</h3>
+                    <div class="flex justify-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-2 text-xl" style="color: var(--accent);"></i>
+                            <span>+52 55 1295 2313</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/525512952313" target="_blank" class="fixed bottom-6 right-6 z-50 whatsapp-btn">
+        <div class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-xl flex items-center transition-all">
+            <i class="fab fa-whatsapp text-2xl mr-2"></i>
+            <span class="font-medium">Hablar con Ventas</span>
+        </div>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Inicializar AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+        
+        // Inicializar calendario
+        flatpickr("#event_date", {
+            locale: "es",
+            minDate: "today",
+            dateFormat: "d/m/Y",
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Crear efecto de confeti
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#FF4D8D', '#FF8EAD', '#FF1A6D', '#9C27B0', '#00BFA5', '#FFD700'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                container.appendChild(confetti);
+                
+                // Animación
+                const animation = confetti.animate([
+                    { top: -10 + 'px', opacity: 0, transform: 'rotate(0deg)' },
+                    { top: Math.random() * 100 + 50 + 'vh', opacity: 1, transform: 'rotate(' + Math.random() * 360 + 'deg)' }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)',
+                    fill: 'forwards'
+                });
+                
+                // Eliminar después de la animación
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
+            }
+        }
+        
+        // Ejecutar confeti al cargar y cada cierto tiempo
+        createConfetti();
+        setInterval(createConfetti, 5000);
+    </script>
+</body>
+</html>
